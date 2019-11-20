@@ -1,5 +1,11 @@
 # Mothership JS 
 
+## About
+
+Mothership JS allows you to log client-side errors to your [Mothership](https://mothership.app) account where you can gather and organize logs in addition to performing backups, healthchecks, and sync your devlopment box with your various environments in seconds. 
+
+Once you've signed up let's get started!
+
 ## Installing
 
 ### Simple
@@ -12,6 +18,8 @@ Drop the following into your ```<head>``` as close to the top as you can and pop
 </script>
 <script src="/main.js"></script>
 ```
+
+This will create ```window.MothershipJs``` which you can access from anywhere to change configuration or execute errors in your try/catch or anywhere you need to log something.
 
 ### Advanced
 
@@ -63,6 +71,16 @@ new MothershipJs({
 ```
 
 You can also set individual settings like so:
+
+### Simple Install
+
+```js
+window.MothershipJs.environment = 'production'
+window.MothershipJs.version = '1.0.3'
+```
+
+### Project Import
+
 ```js
 mjs.environment = 'production'
 mjs.version = '1.0.3'
