@@ -109,18 +109,20 @@ export default class Mothership {
       if (type === null) {
         type = 'error'
       }
-      const request = this.buildRequestObject(
-        type,
-        msg,
-        url,
-        error
-      )
-      .then(request => {
-        this.sendLog(request);
-      })
-      .catch(error => {
-        console.warn("Could not parse the stack trace", error);
-      });
+      if (this.checkLevel(type) && this.checkDomains(url)) {
+        const request = this.buildRequestObject(
+          type,
+          msg,
+          url,
+          error
+        )
+        .then(request => {
+          this.sendLog(request);
+        })
+        .catch(error => {
+          console.warn("Could not parse the stack trace", error);
+        });
+      }
     }
   }
 
@@ -160,6 +162,48 @@ export default class Mothership {
     window.onerror = (msg, url, lineNo, columnNo, error) => {
       this.uncaughtError(msg, url, error);
     };
+  }
+
+  private checkLevel(type: string): boolean {
+    if (this.options.minimumErrorLevel === 'debug') {
+      return true
+    } else if (this.options.minimumErrorLevel === 'info') {
+      if (type !== 'debug') {
+        return true;
+      }
+    } else if (this.options.minimumErrorLevel === 'warn') {
+      if (type !== 'debug' && type !== 'info') {
+        return true;
+      }
+    }  else if (this.options.minimumErrorLevel === 'error') {
+      if (type === 'error' || type === 'critical') {
+        return true;
+      }
+    }  else if (this.options.minimumErrorLevel === 'critical') {
+      if (type === 'critical') {
+        return true;
+      }
+    } 
+
+    return false
+  }
+
+  private checkDomains(url: string): boolean {
+    
+    if (this.options.allowedDomains.length > 0) {
+      const domain = url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+      if (!this.options.allowedDomains.includes(domain)) {
+        return false
+      }
+    }
+    if (this.options.disallowedDomains.length > 0) {
+      const domain = url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+      if (this.options.disallowedDomains.includes(domain)) {
+        return false
+      }
+    }
+
+    return true
   }
 
   /**
@@ -216,7 +260,7 @@ export default class Mothership {
     url: string = null,
     error: object = null
   ): void {
-    if (this.options.captureUncaught) {
+    if (this.options.enabled && this.options.captureUncaught && this.checkLevel('error') && this.checkDomains(url)) {
       this.buildRequestObject("error", msg, url, error)
         .then(request => {
           this.sendLog(request);

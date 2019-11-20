@@ -40,7 +40,7 @@ apiKey: "", // required
 enabled: true, // enables or disables logging entirely
 environment: null, // String defining the environment
 version: null, // String defining the version
-errorLevel: "debug", // The minimum error level to log
+minimumErrorLevel: "debug", // The minimum error level to log (must be at least "error" to capture uncaught exceptions)
 customPayload: {}, // An object of any custom information
 allowedDomains: [], // Array of strings of domains that should be logged
 disallowedDomains: [], // Array of strings of domains that shouldn't be logged
