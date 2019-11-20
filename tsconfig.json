@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "noLib": false,
+    "allowJs": false
+  },
+  "files": ["./src/.ts"],
+  "exclude": ["node_modules"]
+}
