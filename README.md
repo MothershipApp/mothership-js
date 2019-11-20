@@ -1,4 +1,4 @@
-# Mothership JavaScript Logging Library
+# Mothership JS 
 
 ## Installing
 
@@ -18,26 +18,26 @@ Drop the following into your ```<head>``` as close to the top as you can and pop
 To import mothership js logs as a module include it an initialize with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
 
 ```js
-import MothershipLogger from 'mothership-js-logs'
+import MothershipJs from 'mothership-js-logs'
 ...
-var mothershipLogger = new MothershipLogger({apiKey: 'XXXXXXXX'});
+var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
 ```
 
-Do note that you will need Mothership Logger to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
+Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
 
 ## Options
 Here are the default options
 ```js
-    apiKey: "",
-    enabled: true,
-    environment: null,
-    version: null,
-    errorLevel: "debug",
-    customPayload: {},
-    allowedDomains: [],
-    disallowedDomains: [],
-    disableIPCapture: false,
-    captureUncaught: true
+apiKey: "", // required
+enabled: true, // enables or disables logging entirely
+environment: null, // String defining the environment
+version: null, // String defining the version
+errorLevel: "debug", // The minimum error level to log
+customPayload: {}, // An object of any custom information
+allowedDomains: [], // Array of strings of domains that should be logged
+disallowedDomains: [], // Array of strings of domains that shouldn't be logged
+disableIPCapture: false, // Tells Mothership not to store the IP Address of the client logging
+captureUncaught: true // If disabled will not capture uncaught exceptions
 ```
 
 They can be set on the simple install like-a-so:
@@ -55,7 +55,7 @@ They can be set on the simple install like-a-so:
 Or, on when using it as a project import:
 
 ```js
-new MothershipLogger({
+new MothershipJs({
   apiKey: 'XXXXXXXX', 
   disableIPCapture: true,
   ...
@@ -64,11 +64,33 @@ new MothershipLogger({
 
 You can also set individual settings like so:
 ```js
-mothershipLogger.environment = 'production'
-mothershipLogger.version = '1.0.3'
+mjs.environment = 'production'
+mjs.version = '1.0.3'
 ```
 
+## Usage
 
+Out of the box Mothership JS will automatically submit all uncaught errors that happen. If you would like to log errors that _are_ caught you can use the following methods:
+
+### Simple Install
+
+```js
+window.MothershipJs.critical('Woah, we messed up')
+window.MothershipJs.error('Like... really messed up')
+window.MothershipJs.warn('I mean... not that bad')
+window.MothershipJs.info('We just wanted to know')
+window.MothershipJs.debug('This was all a test')
+```
+
+### Project Import 
+
+```js
+mjs.critical('Woah, we messed up')
+mjs.error('Like... really messed up')
+mjs.warn('I mean... not that bad')
+mjs.info('We just wanted to know')
+mjs.debug('This was all a test')
+```
 
 ## Development and Testing
 

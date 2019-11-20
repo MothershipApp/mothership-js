@@ -1,8 +1,8 @@
-import MothershipLogger from "./logger";
+import MothershipJs from "./logger";
 
 if (typeof window.MothershipConfig !== "undefined") {
   const options = window.MothershipConfig;
-  window.Mothership = new MothershipLogger(options);
+  window.MothershipJs = new MothershipJs(options);
 } else {
   console.warn("Mothership: You need to set (at minimum) window.MothershipConfig={ apiKey: xxxxx } ")
 }

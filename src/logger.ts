@@ -4,7 +4,7 @@ let StackTrace = require("stacktrace-js");
 declare global {
   interface Window {
     MothershipConfig: any;
-    Mothership: any;
+    MothershipJs: any;
   }
 }
 
@@ -16,7 +16,7 @@ interface MothershipOptions {
   [option: string]: any;
   apiKey: string;
   enabled: boolean;
-  errorLevel: string; // critical, error, warning, info, debug,
+  minimumErrorLevel: string; // critical, error, warn, info, debug,
   environment: string;
   version: string;
   customPayload: object;
@@ -38,7 +38,7 @@ export default class Mothership {
     enabled: true,
     environment: null,
     version: null,
-    errorLevel: "debug",
+    minimumErrorLevel: "debug",
     customPayload: {},
     allowedDomains: [],
     disallowedDomains: [],
@@ -59,8 +59,8 @@ export default class Mothership {
     this.options.enabled = value;
   }
 
-  set errorLevel(value: string) {
-    this.options.errorLevel = value;
+  set minimumErrorLevel(value: string) {
+    this.options.minimumErrorLevel = value;
   }
 
   set environment(value: string) {
@@ -102,16 +102,55 @@ export default class Mothership {
   error(
     msg: string,
     url: string = null,
-    error: object = null
+    error: object = null,
+    type: string = null
   ) {
     if (this.options.enabled) {
+      if (type === null) {
+        type = 'error'
+      }
       const request = this.buildRequestObject(
-        "error",
+        type,
         msg,
         url,
         error
-      );
+      )
+      .then(request => {
+        this.sendLog(request);
+      })
+      .catch(error => {
+        console.warn("Could not parse the stack trace", error);
+      });
     }
+  }
+
+  critical(
+    msg: string,
+    url: string = null,
+    error: object = null,
+  ) {
+    this.error(msg, url, error, 'critical')
+  }
+  warn(
+    msg: string,
+    url: string = null,
+    error: object = null,
+  ) {
+    this.error(msg, url, error, 'warn')
+  }
+  info(
+    msg: string,
+    url: string = null,
+    error: object = null,
+  ) {
+    this.error(msg, url, error, 'info')
+  }
+  debug(
+    msg: string,
+    url: string = null,
+    error: object = null,
+  ) {
+    this.error(msg, url, error, 'debug')
   }
 
   /**
