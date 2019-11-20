@@ -198,7 +198,6 @@ export default class Mothership {
     if (this.options.apiKey === "") {
       console.warn("Mothership Error: Please set your apiKey");
     } else {
-      console.warn("logging error: ", request, "apiKey: ", this.options.apiKey);
       axios
         .post(`https://mothership.app/api/v1/logs/js`, request, {
           headers: { Authorization: "Bearer " + this.options.apiKey }
