@@ -208,6 +208,8 @@ export default class Mothership {
       const trace: Trace =
         error !== null ? error : { message: null, stack: null };
 
+      const theUrl: string = url !== null ? url : window.location.toString()
+
       StackTrace.fromError(error)
         .then((stackFrame: Array<object>) => {
           resolve({
@@ -221,7 +223,7 @@ export default class Mothership {
               message: trace.message,
               stack: stackFrame
             },
-            url: url,
+            url: theUrl,
             version: this.options.version
           });
         })
@@ -237,7 +239,7 @@ export default class Mothership {
               message: trace.message,
               stack: trace.stack
             },
-            url: url,
+            url: theUrl,
             version: this.options.version
           });
         });
