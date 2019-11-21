@@ -14,6 +14,7 @@ interface Window {
 
 interface MothershipOptions {
   [option: string]: any;
+  mothershipUrl: string; // For testing
   apiKey: string;
   enabled: boolean;
   minimumErrorLevel: string; // critical, error, warn, info, debug,
@@ -34,6 +35,7 @@ interface Trace {
 
 export default class Mothership {
   private defaultOptions: MothershipOptions = {
+    mothershipUrl: "https://mothership.app",
     apiKey: "",
     enabled: true,
     environment: null,
@@ -208,7 +210,7 @@ export default class Mothership {
       const trace: Trace =
         error !== null ? error : { message: null, stack: null };
 
-      const theUrl: string = url !== null ? url : window.location.toString()
+      const theUrl: string = url !== null ? url : window.location.toString();
 
       StackTrace.fromError(error)
         .then((stackFrame: Array<object>) => {
@@ -285,8 +287,10 @@ export default class Mothership {
       console.warn("Mothership Error: Please set your apiKey");
     } else {
       axios
-        .post(`https://mothership.app/api/v1/logs/js`, request, {
-          headers: { Authorization: "Bearer " + this.options.apiKey }
+        .post(`${this.options.mothershipUrl}/api/v1/logs/js`, request, {
+          headers: {
+            Authorization: "Bearer " + this.options.apiKey
+          }
         })
         .catch((error: object) => {
           console.error("There was a problem reaching mothership", error);

@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 const config = {
@@ -24,7 +25,15 @@ const config = {
   devServer: {
     contentBase: "./"
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      mothershipUrl: process.env.MOTHERSHIP_URL,
+      hash: true,
+      filename: "./index.html",
+      template: "./src/index.html"
+    })
+  ]
 };
 
 module.exports = config;

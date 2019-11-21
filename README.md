@@ -140,11 +140,11 @@ npm run build-lib
 ### Development
 
 ```sh
-yarn start
+yarn serve
 ```
 
 ```sh
-npm run start
+npm run serve
 ```
 
 ### Testing
