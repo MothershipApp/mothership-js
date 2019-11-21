@@ -10,13 +10,15 @@ Once you've signed up let's get started!
 
 ### Library
 
+Download [mothership-js.lib.js](https://raw.githubusercontent.com/MothershipApp/mothership-js/master/library-dist/mothership-js.lib.js) and place it in your javascript directory (the example below we assume it's called "js").
+
 Drop the following into your `<head>` as close to the top as you can and populate the apiKey with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
 
 ```html
 <script>
   window.MothershipConfig = { apiKey: "XXXXXX" };
 </script>
-<script src="/main.js"></script>
+<script src="js/mothership-js.lib.js"></script>
 ```
 
 This will create `window.MothershipJs` which you can access from anywhere to change configuration or execute errors in your try/catch or anywhere you need to log something.
