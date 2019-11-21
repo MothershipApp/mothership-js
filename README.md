@@ -8,6 +8,26 @@ Once you've signed up let's get started!
 
 ## Installing
 
+### Plugin
+
+To import mothership js logs as a module include it an initialize with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
+
+```sh
+yarn add mothership-js
+```
+
+```sh
+npm install mothership-js --save
+```
+
+```js
+import MothershipJs from 'mothership-js-logs'
+...
+var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
+```
+
+Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
+
 ### Library
 
 Download [mothership-js.lib.js](https://raw.githubusercontent.com/MothershipApp/mothership-js/master/library-dist/mothership-js.lib.js) and place it in your javascript directory (the example below we assume it's called "js").
@@ -22,18 +42,6 @@ Drop the following into your `<head>` as close to the top as you can and populat
 ```
 
 This will create `window.MothershipJs` which you can access from anywhere to change configuration or execute errors in your try/catch or anywhere you need to log something.
-
-### Plugin
-
-To import mothership js logs as a module include it an initialize with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
-
-```js
-import MothershipJs from 'mothership-js-logs'
-...
-var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
-```
-
-Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
 
 ## Options
 

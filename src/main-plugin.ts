@@ -107,52 +107,31 @@ export default class Mothership {
   ) {
     if (this.options.enabled) {
       if (type === null) {
-        type = 'error'
+        type = "error";
       }
       if (this.checkLevel(type) && this.checkDomains(url)) {
-        const request = this.buildRequestObject(
-          type,
-          msg,
-          url,
-          error
-        )
-        .then(request => {
-          this.sendLog(request);
-        })
-        .catch(error => {
-          console.warn("Could not parse the stack trace", error);
-        });
+        const request = this.buildRequestObject(type, msg, url, error)
+          .then(request => {
+            this.sendLog(request);
+          })
+          .catch(error => {
+            console.warn("Could not parse the stack trace", error);
+          });
       }
     }
   }
 
-  critical(
-    msg: string,
-    url: string = null,
-    error: object = null,
-  ) {
-    this.error(msg, url, error, 'critical')
+  critical(msg: string, url: string = null, error: object = null) {
+    this.error(msg, url, error, "critical");
   }
-  warn(
-    msg: string,
-    url: string = null,
-    error: object = null,
-  ) {
-    this.error(msg, url, error, 'warn')
+  warn(msg: string, url: string = null, error: object = null) {
+    this.error(msg, url, error, "warn");
   }
-  info(
-    msg: string,
-    url: string = null,
-    error: object = null,
-  ) {
-    this.error(msg, url, error, 'info')
+  info(msg: string, url: string = null, error: object = null) {
+    this.error(msg, url, error, "info");
   }
-  debug(
-    msg: string,
-    url: string = null,
-    error: object = null,
-  ) {
-    this.error(msg, url, error, 'debug')
+  debug(msg: string, url: string = null, error: object = null) {
+    this.error(msg, url, error, "debug");
   }
 
   /**
@@ -165,45 +144,50 @@ export default class Mothership {
   }
 
   private checkLevel(type: string): boolean {
-    if (this.options.minimumErrorLevel === 'debug') {
-      return true
-    } else if (this.options.minimumErrorLevel === 'info') {
-      if (type !== 'debug') {
+    if (this.options.minimumErrorLevel === "debug") {
+      return true;
+    } else if (this.options.minimumErrorLevel === "info") {
+      if (type !== "debug") {
         return true;
       }
-    } else if (this.options.minimumErrorLevel === 'warn') {
-      if (type !== 'debug' && type !== 'info') {
+    } else if (this.options.minimumErrorLevel === "warn") {
+      if (type !== "debug" && type !== "info") {
         return true;
       }
-    }  else if (this.options.minimumErrorLevel === 'error') {
-      if (type === 'error' || type === 'critical') {
+    } else if (this.options.minimumErrorLevel === "error") {
+      if (type === "error" || type === "critical") {
         return true;
       }
-    }  else if (this.options.minimumErrorLevel === 'critical') {
-      if (type === 'critical') {
+    } else if (this.options.minimumErrorLevel === "critical") {
+      if (type === "critical") {
         return true;
       }
-    } 
+    }
 
-    return false
+    return false;
   }
 
   private checkDomains(url: string): boolean {
-    
     if (this.options.allowedDomains.length > 0) {
-      const domain = url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+      const domain = url
+        .replace("http://", "")
+        .replace("https://", "")
+        .split(/[/?#]/)[0];
       if (!this.options.allowedDomains.includes(domain)) {
-        return false
+        return false;
       }
     }
     if (this.options.disallowedDomains.length > 0) {
-      const domain = url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+      const domain = url
+        .replace("http://", "")
+        .replace("https://", "")
+        .split(/[/?#]/)[0];
       if (this.options.disallowedDomains.includes(domain)) {
-        return false
+        return false;
       }
     }
 
-    return true
+    return true;
   }
 
   /**
@@ -238,11 +222,24 @@ export default class Mothership {
               stack: stackFrame
             },
             url: url,
-            version: this.options.version,
+            version: this.options.version
           });
         })
         .catch((error: Error) => {
-          reject(error);
+          resolve({
+            custom: this.options.customPayload,
+            disableIPCapture: this.options.disableIPCapture,
+            environment: this.options.environment,
+            level: level,
+            message: msg,
+            platform: navigator.userAgent,
+            trace: {
+              message: trace.message,
+              stack: trace.stack
+            },
+            url: url,
+            version: this.options.version
+          });
         });
     });
   }
@@ -260,7 +257,12 @@ export default class Mothership {
     url: string = null,
     error: object = null
   ): void {
-    if (this.options.enabled && this.options.captureUncaught && this.checkLevel('error') && this.checkDomains(url)) {
+    if (
+      this.options.enabled &&
+      this.options.captureUncaught &&
+      this.checkLevel("error") &&
+      this.checkDomains(url)
+    ) {
       this.buildRequestObject("error", msg, url, error)
         .then(request => {
           this.sendLog(request);
@@ -277,7 +279,6 @@ export default class Mothership {
    * @param request     The request payload
    */
   private sendLog(request: object): void {
-
     if (this.options.apiKey === "") {
       console.warn("Mothership Error: Please set your apiKey");
     } else {
