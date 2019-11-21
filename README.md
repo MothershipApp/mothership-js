@@ -1,27 +1,27 @@
-# Mothership JS 
+# Mothership JS
 
 ## About
 
-Mothership JS allows you to log client-side errors to your [Mothership](https://mothership.app) account where you can gather and organize logs in addition to performing backups, healthchecks, and sync your devlopment box with your various environments in seconds. 
+Mothership JS allows you to log client-side errors to your [Mothership](https://mothership.app) account where you can gather and organize logs in addition to performing backups, healthchecks, and sync your devlopment box with your various environments in seconds.
 
 Once you've signed up let's get started!
 
 ## Installing
 
-### Simple
+### Library
 
-Drop the following into your ```<head>``` as close to the top as you can and populate the apiKey with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
+Drop the following into your `<head>` as close to the top as you can and populate the apiKey with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
 
 ```html
 <script>
-  window.MothershipConfig={ apiKey: "XXXXXX" } 
+  window.MothershipConfig = { apiKey: "XXXXXX" };
 </script>
 <script src="/main.js"></script>
 ```
 
-This will create ```window.MothershipJs``` which you can access from anywhere to change configuration or execute errors in your try/catch or anywhere you need to log something.
+This will create `window.MothershipJs` which you can access from anywhere to change configuration or execute errors in your try/catch or anywhere you need to log something.
 
-### Advanced
+### Plugin
 
 To import mothership js logs as a module include it an initialize with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
 
@@ -34,7 +34,9 @@ var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
 Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
 
 ## Options
+
 Here are the default options
+
 ```js
 apiKey: "", // required
 enabled: true, // enables or disables logging entirely
@@ -48,23 +50,24 @@ disableIPCapture: false, // Tells Mothership not to store the IP Address of the 
 captureUncaught: true // If disabled will not capture uncaught exceptions
 ```
 
-They can be set on the simple install like-a-so:
+They can be set on the library install like-a-so:
+
 ```html
 <script>
-  window.MothershipConfig={ 
-    apiKey: "XXXXXX", 
+  window.MothershipConfig={
+    apiKey: "XXXXXX",
     disallowedDomains: ['google.com', 'whatever.com'],
     ...etc...
-  } 
+  }
 </script>
 <script src="/main.js"></script>
 ```
 
-Or, on when using it as a project import:
+Or, on when using it as a plugin:
 
 ```js
 new MothershipJs({
-  apiKey: 'XXXXXXXX', 
+  apiKey: 'XXXXXXXX',
   disableIPCapture: true,
   ...
 });
@@ -72,53 +75,56 @@ new MothershipJs({
 
 You can also set individual settings like so:
 
-### Simple Install
+### Library Install
 
 ```js
-window.MothershipJs.environment = 'production'
-window.MothershipJs.version = '1.0.3'
+window.MothershipJs.environment = "production";
+window.MothershipJs.version = "1.0.3";
 ```
 
-### Project Import
+### Plugin
 
 ```js
-mjs.environment = 'production'
-mjs.version = '1.0.3'
+mjs.environment = "production";
+mjs.version = "1.0.3";
 ```
 
 ## Usage
 
 Out of the box Mothership JS will automatically submit all uncaught errors that happen. If you would like to log errors that _are_ caught you can use the following methods:
 
-### Simple Install
+### Library Install
 
 ```js
-window.MothershipJs.critical('Woah, we messed up')
-window.MothershipJs.error('Like... really messed up')
-window.MothershipJs.warn('I mean... not that bad')
-window.MothershipJs.info('We just wanted to know')
-window.MothershipJs.debug('This was all a test')
+window.MothershipJs.critical("Woah, we messed up");
+window.MothershipJs.error("Like... really messed up");
+window.MothershipJs.warn("I mean... not that bad");
+window.MothershipJs.info("We just wanted to know");
+window.MothershipJs.debug("This was all a test");
 ```
 
-### Project Import 
+### Plugin
 
 ```js
-mjs.critical('Woah, we messed up')
-mjs.error('Like... really messed up')
-mjs.warn('I mean... not that bad')
-mjs.info('We just wanted to know')
-mjs.debug('This was all a test')
+mjs.critical("Woah, we messed up");
+mjs.error("Like... really messed up");
+mjs.warn("I mean... not that bad");
+mjs.info("We just wanted to know");
+mjs.debug("This was all a test");
 ```
 
 ## Development and Testing
 
 ### Build
 
+This will build both the library and the plugin packages
+
 ```sh
-yarn build
+yarn build-lib
 ```
+
 ```sh
-npm run build
+npm run build-lib
 ```
 
 ### Development
@@ -126,6 +132,7 @@ npm run build
 ```sh
 yarn start
 ```
+
 ```sh
 npm run start
 ```
@@ -135,6 +142,7 @@ npm run start
 ```sh
 yarn test
 ```
+
 ```sh
 npm run test
 ```
