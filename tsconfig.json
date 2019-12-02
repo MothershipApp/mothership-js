@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
     "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es5",
     "moduleResolution": "node",
-    "target": "es6",
-    "noLib": false,
-    "allowJs": false
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "declaration": true
+    // "noImplicitAny": true,
+    // "noLib": false,
+    // "allowJs": false,
   },
-  "files": ["./src/.ts"],
-  "exclude": ["node_modules"]
+  "lib": ["es2015"]
+  // "files": ["./src/.ts"],
+  // "exclude": ["node_modules"]
 }

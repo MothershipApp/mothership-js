@@ -6,7 +6,9 @@ const config = {
   entry: "./src/main-library.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js"
+    filename: "[name].js",
+    libraryTarget: "umd",
+    library: "MothershipJs"
   },
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",

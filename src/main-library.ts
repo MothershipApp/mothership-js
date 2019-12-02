@@ -1,4 +1,4 @@
-import MothershipJs from "./main-plugin";
+import { MothershipJs } from "./MothershipJs";
 
 if (typeof window.MothershipConfig !== "undefined") {
   const options = window.MothershipConfig;
