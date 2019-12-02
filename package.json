@@ -9,14 +9,13 @@
     "client"
   ],
   "license": "BSD-3-Clause",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/MothershipApp/mothership-js"
   },
   "private": false,
-  "main": "dist/MothershipJs.js",
-  "types": "dist/MothershipJs.d.ts",
+  "main": "plugin-dist/mothership-js.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development --watch",
