@@ -33,7 +33,7 @@ interface Trace {
   stack?: Array<string>;
 }
 
-export class MothershipJs {
+export default class MothershipJs {
   private defaultOptions: MothershipOptions = {
     mothershipUrl: "https://mothership.app",
     apiKey: "",

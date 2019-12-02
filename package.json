@@ -15,7 +15,8 @@
     "url": "https://github.com/MothershipApp/mothership-js"
   },
   "private": false,
-  "main": "./plugin-dist/mothership-js.js",
+  "main": "dist/MothershipJs.js",
+  "types": "dist/MothershipJs.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development --watch",
