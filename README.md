@@ -8,7 +8,7 @@ Once you've signed up let's get started!
 
 ## Installing
 
-### Plugin
+### JS Module
 
 To import mothership js logs as a module include it an initialize with your logging token at [https://mothership.app/](https://mothership.app/) > Project > Project Settings > Log Settings
 
@@ -26,7 +26,7 @@ import MothershipJs from 'mothership-js'
 var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
 ```
 
-Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug.
+Do note that you will need Mothership JS to init pretty early in your page load to catch all the errors so ensure it's bundled in something that loads towards the top of the head before any other libraries that you may want to debug
 
 ### Library
 
@@ -73,7 +73,7 @@ They can be set on the library install like-a-so:
 <script src="/main.js"></script>
 ```
 
-Or, on when using it as a plugin:
+Or, on when using it as a js module:
 
 ```js
 new MothershipJs({
@@ -85,14 +85,14 @@ new MothershipJs({
 
 You can also set individual settings like so:
 
-### Library Install
+### Setting options from the library instance
 
 ```js
 window.MothershipJs.environment = "production";
 window.MothershipJs.version = "1.0.3";
 ```
 
-### Plugin
+### Setting options from js module instance
 
 ```js
 mjs.environment = "production";
@@ -103,7 +103,7 @@ mjs.version = "1.0.3";
 
 Out of the box Mothership JS will automatically submit all uncaught errors that happen. If you would like to log errors that _are_ caught you can use the following methods:
 
-### Library Install
+### Example from Library Install
 
 ```js
 window.MothershipJs.critical("Woah, we messed up");
@@ -113,7 +113,7 @@ window.MothershipJs.info("We just wanted to know");
 window.MothershipJs.debug("This was all a test");
 ```
 
-### Plugin
+### Example when using the JS Module
 
 ```js
 mjs.critical("Woah, we messed up");
@@ -127,7 +127,7 @@ mjs.debug("This was all a test");
 
 ### Build
 
-This will build both the library and the plugin packages
+This will build both the library and the js module packages
 
 ```sh
 yarn build-lib
