@@ -21,7 +21,7 @@ npm install mothership-js --save
 ```
 
 ```js
-import MothershipJs from 'mothership-js-logs'
+import MothershipJs from 'mothership-js'
 ...
 var mjs = new MothershipJs({apiKey: 'XXXXXXXX'});
 ```
