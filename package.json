@@ -24,7 +24,7 @@
     "build-lib": "npm run build-lib:library && npm run build-lib:plugin",
     "build-lib:library": "webpack --entry=./src/main-library.ts --output=./library-dist/mothership-js.lib.js --mode production  --MOTHERSHIP_URL=https://mothership.app",
     "build-lib:plugin": "webpack --entry=./src/MothershipJs.ts --output=./plugin-dist/mothership-js.js --mode production --MOTHERSHIP_URL=https://mothership.app",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "dependencies": {
     "axios": "^0.19.0",
