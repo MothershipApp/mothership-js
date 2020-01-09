@@ -1,3 +1,5 @@
+require('./object.polyfill.js')
+
 import MothershipJs from "./MothershipJs";
 
 if (typeof window.MothershipConfig !== "undefined") {
