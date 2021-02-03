@@ -8,7 +8,7 @@ const config = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     libraryTarget: "umd",
-    library: "MothershipJs"
+    library: "MothershipJs",
   },
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -16,16 +16,16 @@ const config = {
     rules: [
       {
         test: /\.ts(x)?$/,
-        use: ["awesome-typescript-loader"],
-        exclude: /node_modules/
-      }
-    ]
+        loader: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
   },
   devServer: {
-    contentBase: "./"
+    contentBase: "./",
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -33,9 +33,9 @@ const config = {
       mothershipUrl: process.env.MOTHERSHIP_URL,
       hash: true,
       filename: "./index.html",
-      template: "./src/index.html"
-    })
-  ]
+      template: "./src/index.html",
+    }),
+  ],
 };
 
 module.exports = config;
